@@ -36,25 +36,45 @@
 <body class="bg-gray-50 text-gray-900 antialiased">
 
     <nav class="bg-white p-4 text-gray-800 shadow-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1>
-                <a href="index.html" class="flex items-center gap-2">
-                    <img src="images/logo-nouvel-espoir.png" alt="Logo" class="h-12 w-auto">
-                    <div class="flex flex-col leading-tight">
-                        <span class="text-xl font-extrabold tracking-tight text-green-700">NOUVEL ESPOIR</span>
-                        <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
-                    </div>
-                </a>
-            </h1>
-            <ul class="hidden md:flex space-x-8 font-semibold items-center">
-                <li><a href="index.html" class="text-gray-600 hover:text-green-600 transition-colors">Accueil</a></li>
-                <li><a href="propos.html" class="text-gray-600 hover:text-green-600">À Propos</a></li>
-                <li><a href="secteurs.html" class="text-gray-600 hover:text-green-600">Nos Secteurs</a></li>
-                <li><a href="realisations.html" class="text-green-700 border-b-2 border-green-700">Réalisations</a></li>
-                <li><a href="contact.html" class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-all shadow-md">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+    <div class="container mx-auto flex justify-between items-center">
+        <h1>
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="images/logo-nouvel-espoir.png" alt="Logo" class="h-12 w-auto">
+                <div class="flex flex-col leading-tight">
+                    <span class="text-xl font-extrabold tracking-tight text-green-700">NOUVEL ESPOIR</span>
+                    <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
+                </div>
+            </a>
+        </h1>
+
+        <ul class="hidden md:flex space-x-8 font-semibold items-center">
+            <li><a href="index.html" class="text-gray-600 hover:text-green-600 transition-colors">Accueil</a></li>
+            <li><a href="propos.html" class="text-gray-600 hover:text-green-600">À Propos</a></li>
+            <li><a href="secteurs.html" class="text-gray-600 hover:text-green-600">Nos Secteurs</a></li>
+            <li><a href="realisations.html" class="text-green-700 border-b-2 border-green-700">Réalisations</a></li>
+            <li><a href="contact.html" class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-all shadow-md">Contact</a></li>
+        </ul>
+
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-green-700 focus:outline-none focus:ring-2 focus:ring-green-100 rounded-lg">
+            <svg id="menu-icon" class="w-8 h-8 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path id="path-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                <path id="path-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+
+    <div id="mobile-nav" class="hidden md:hidden absolute left-0 right-0 bg-white border-b border-gray-100 shadow-2xl z-40">
+        <ul class="flex flex-col p-6 space-y-4 font-bold text-gray-700">
+            <li><a href="index.html" class="hover:text-green-700 block py-2 transition-colors">Accueil</a></li>
+            <li><a href="propos.html" class="hover:text-green-700 block py-2 transition-colors">À Propos</a></li>
+            <li><a href="secteurs.html" class="hover:text-green-700 block py-2 transition-colors">Nos Secteurs</a></li>
+            <li><a href="realisations.html" class="text-green-700 block py-2 transition-colors">Réalisations</a></li>
+            <li class="pt-4">
+                <a href="contact.html" class="bg-green-600 text-white text-center py-4 rounded-2xl block shadow-lg font-black uppercase text-xs tracking-widest">Nous Contacter</a>
+            </li>
+        </ul>
+    </div>
+</nav>
 
     <section class="pt-20 pb-16 bg-white border-b border-gray-100">
         <div class="container mx-auto px-6 text-center">
@@ -278,5 +298,37 @@
 
     document.addEventListener('DOMContentLoaded', fetchRealisations);
     </script>
+
+    <script>
+    const menuBtn = document.getElementById('mobile-menu-btn');
+    const mobileNav = document.getElementById('mobile-nav');
+    const pathOpen = document.getElementById('path-open');
+    const pathClose = document.getElementById('path-close');
+
+    menuBtn.addEventListener('click', () => {
+        const isHidden = mobileNav.classList.contains('hidden');
+        
+        if (isHidden) {
+            // Ouvrir le menu
+            mobileNav.classList.remove('hidden');
+            pathOpen.classList.add('hidden');
+            pathClose.classList.remove('hidden');
+        } else {
+            // Fermer le menu
+            mobileNav.classList.add('hidden');
+            pathOpen.classList.remove('hidden');
+            pathClose.classList.add('hidden');
+        }
+    });
+
+    // Fermer le menu si on clique sur un lien (pratique pour l'expérience utilisateur)
+    mobileNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileNav.classList.add('hidden');
+            pathOpen.classList.remove('hidden');
+            pathClose.classList.add('hidden');
+        });
+    });
+</script>
 </body>
 </html>
