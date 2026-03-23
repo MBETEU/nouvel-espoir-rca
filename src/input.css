@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+
+ 
+/* Ou plus simple pour couvrir tout le monde : */
+@source "./*.html";
+
+@theme {
+  --color-hope-green: #108942;
+  --color-hope-orange: #ff731d;
+}

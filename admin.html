@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin | Nouvel Espoir</title>
+    <link href="./style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-50 min-h-screen pb-20">
+
+    <nav class="bg-white shadow-sm p-4 mb-8 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <img src="images/logo-nouvel-espoir.png" alt="Logo Nouvel Espoir" class="h-12 w-auto">
+                <h1 class="font-bold text-gray-700">Admin Nouvel Espoir</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <span id="user-email" class="text-xs text-gray-400 italic"></span>
+                <button id="btn-logout" class="text-red-500 font-bold text-sm border border-red-200 px-4 py-2 rounded-xl hover:bg-red-50 transition">Déconnexion</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 max-w-3xl">
+        <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 mb-12">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Nouvelle Réalisation</h2>
+            
+            <form id="main-form" class="space-y-6">
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-xs font-bold text-gray-400 uppercase ml-2">Titre du projet</label>
+                        <input type="text" id="titre" placeholder="Ex: Construction d'un puit..." class="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-green-500" required>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-gray-400 uppercase ml-2">Secteur d'activité</label>
+                        <select id="categorie" class="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-green-500">
+                            <option value="Éducation">🎓 Éducation</option>
+                            <option value="Santé">🏥 Santé</option>
+                            <option value="WASH">💧 WASH</option>
+                            <option value="Protection">🤝 Protection</option>
+                            <option value="Urgence">🚨 Urgence</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="text-xs font-bold text-gray-400 uppercase ml-2">Description</label>
+                    <textarea id="desc" rows="4" class="w-full p-4 bg-gray-50 rounded-2xl outline-none focus:ring-2 focus:ring-green-500" required></textarea>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="p-4 border-2 border-dashed border-green-200 bg-green-50/30 rounded-2xl text-center">
+                        <label class="cursor-pointer block">
+                            <span class="text-sm font-bold text-green-700 block">📸 Photos</span>
+                            <input type="file" id="photo-files" accept="image/*" multiple class="hidden">
+                            <p id="photo-count" class="text-[10px] text-green-600 italic">Aucun fichier</p>
+                        </label>
+                    </div>
+                    <div class="p-4 border-2 border-dashed border-blue-200 bg-blue-50/30 rounded-2xl text-center">
+                        <label class="cursor-pointer block">
+                            <span class="text-sm font-bold text-blue-700 block">🎥 Vidéos</span>
+                            <input type="file" id="video-files" accept="video/*" multiple class="hidden">
+                            <p id="video-count" class="text-[10px] text-blue-600 italic">Aucun fichier</p>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="prog-zone" class="hidden space-y-2">
+                    <div class="flex justify-between text-[10px] font-black text-green-700">
+                        <span id="prog-label">Téléchargement en cours...</span>
+                        <span id="prog-val">Patientez</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                        <div id="prog-bar" class="bg-green-600 h-full animate-pulse" style="width: 100%"></div>
+                    </div>
+                </div>
+
+                <button type="submit" id="btn-submit" class="w-full bg-green-600 text-white py-4 rounded-2xl font-bold">Publier</button>
+            </form>
+        </div>
+
+        <h3 class="text-xl font-bold text-gray-800 mb-6">Projets publiés</h3>
+        <div id="gestion-liste" class="space-y-4"></div>
+    </div>
+
+    <script>
+    const SUPABASE_URL = 'https://sveeuxbtcrobmsvjgrkz.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_pKXWtFrpss6-j3yOQZ26fg_VTxiS_Sk';
+    const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let editId = null;
+
+    async function checkUser() {
+        const { data: { session } } = await _supabase.auth.getSession();
+        if (!session) {
+            window.location.replace('login.html');
+        } else {
+            document.getElementById('user-email').innerText = session.user.email;
+            loadList();
+        }
+    }
+
+    document.getElementById('btn-logout').addEventListener('click', async () => {
+        await _supabase.auth.signOut();
+        window.location.replace('login.html');
+    });
+
+    document.getElementById('photo-files').addEventListener('change', e => {
+        document.getElementById('photo-count').innerText = e.target.files.length + " photo(s) prête(s)";
+    });
+    document.getElementById('video-files').addEventListener('change', e => {
+        document.getElementById('video-count').innerText = e.target.files.length + " vidéo(s) prête(s)";
+    });
+
+    // FONCTION UPLOAD CORRIGÉE
+    async function uploadFiles(files, bucket) {
+        let urls = [];
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
+            
+            const { data, error } = await _supabase.storage.from(bucket).upload(fileName, file);
+            
+            if (error) {
+                throw new Error(`Erreur Storage (${bucket}): ${error.message}`);
+            }
+
+            const { data: { publicUrl } } = _supabase.storage.from(bucket).getPublicUrl(fileName);
+            urls.push(publicUrl);
+        }
+        return urls;
+    }
+
+    // SOUMISSION CORRIGÉE
+    document.getElementById('main-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('btn-submit');
+        const progZone = document.getElementById('prog-zone');
+        
+        btn.disabled = true;
+        btn.innerText = "Téléchargement des fichiers...";
+        progZone.classList.remove('hidden');
+
+        try {
+            const photoFiles = document.getElementById('photo-files').files;
+            const videoFiles = document.getElementById('video-files').files;
+
+            let photoUrls = [];
+            let videoUrls = [];
+
+            // Utilisation impérative des MAJUSCULES pour les buckets
+            if (photoFiles.length > 0) {
+                photoUrls = await uploadFiles(photoFiles, 'images-realisations');
+            }
+            if (videoFiles.length > 0) {
+                videoUrls = await uploadFiles(videoFiles, 'videos-realisations');
+            }
+
+            const payload = {
+                titre: document.getElementById('titre').value,
+                description: document.getElementById('desc').value,
+                categorie: document.getElementById('categorie').value,
+                // On inclut les URLs (tableaux vides si rien n'est sélectionné)
+                image_urls: photoUrls,
+                video_urls: videoUrls
+            };
+
+            let result;
+            if (editId) {
+                // En modification, on ne remplace les médias que si l'utilisateur en a choisi de nouveaux
+                if (photoUrls.length === 0) delete payload.image_urls;
+                if (videoUrls.length === 0) delete payload.video_urls;
+                result = await _supabase.from('realisations').update(payload).eq('id', editId);
+            } else {
+                result = await _supabase.from('realisations').insert([payload]);
+            }
+
+            if (result.error) throw result.error;
+
+            alert(editId ? "Mis à jour !" : "Publié avec succès !");
+            window.location.reload();
+
+        } catch (err) {
+            alert("ALERTE ERREUR : " + err.message);
+            btn.disabled = false;
+            btn.innerText = "Publier";
+            progZone.classList.add('hidden');
+        }
+    });
+
+    async function loadList() {
+        const { data, error } = await _supabase.from('realisations').select('*').order('created_at', { ascending: false });
+        const container = document.getElementById('gestion-liste');
+        
+        if (data) {
+            container.innerHTML = data.map(item => {
+                const imagesHtml = (item.image_urls || []).map(url => `
+                    <img src="${url}" class="w-16 h-16 object-cover rounded-xl border border-gray-100 shadow-sm" onclick="window.open('${url}', '_blank')">
+                `).join('');
+
+                const videosHtml = (item.video_urls || []).map(url => `
+                    <div class="relative w-16 h-16 bg-blue-900 rounded-xl overflow-hidden cursor-pointer" onclick="window.open('${url}', '_blank')">
+                        <video src="${url}" class="w-full h-full object-cover opacity-50"></video>
+                        <div class="absolute inset-0 flex items-center justify-center text-white text-[10px]">▶️</div>
+                    </div>
+                `).join('');
+
+                return `
+                    <div class="bg-white p-6 rounded-[2.5rem] border border-gray-100 shadow-sm mb-4">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h4 class="font-bold text-gray-800">${item.titre}</h4>
+                                <span class="px-3 py-1 bg-green-50 text-green-600 text-[10px] font-black rounded-full uppercase">${item.categorie}</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button onclick="prepareEdit('${item.id}', '${item.titre.replace(/'/g, "\\'")}', '${item.categorie}', '${item.description.replace(/'/g, "\\'").replace(/\n/g, "\\n")}')" class="p-2 bg-blue-50 text-blue-600 rounded-xl">📝</button>
+                                <button onclick="deleteItem('${item.id}')" class="p-2 bg-red-50 text-red-600 rounded-xl">🗑️</button>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-500 mb-4">${item.description}</p>
+                        <div class="flex flex-wrap gap-3">
+                            ${imagesHtml} ${videosHtml}
+                            ${(imagesHtml === '' && videosHtml === '') ? '<p class="text-xs text-gray-400 italic">Aucun média</p>' : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+    }
+
+    window.prepareEdit = (id, titre, categorie, desc) => {
+        editId = id;
+        document.getElementById('titre').value = titre;
+        document.getElementById('categorie').value = categorie;
+        document.getElementById('desc').value = desc;
+        const btn = document.getElementById('btn-submit');
+        btn.innerText = "Enregistrer les modifications";
+        btn.classList.replace('bg-green-600', 'bg-blue-600');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    window.deleteItem = async (id) => {
+        if(confirm("Supprimer ?")) {
+            await _supabase.from('realisations').delete().eq('id', id);
+            loadList();
+        }
+    };
+
+    checkUser();
+    </script>
+</body>
+</html>

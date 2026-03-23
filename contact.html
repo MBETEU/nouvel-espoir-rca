@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactez-nous | Nouvel Espoir</title>
+    <link href="./style.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<nav class="bg-white p-4 text-gray-800 shadow-md border-b border-gray-100 sticky top-0 z-50">
+    <div class="container mx-auto flex justify-between items-center">
+        <h1>
+            <a href="index.html" class="flex items-center gap-2">
+                <img src="images/logo-nouvel-espoir.png" alt="Logo Nouvel Espoir" class="h-12 w-auto">
+                <div class="flex flex-col leading-tight">
+                    <span class="text-xl font-extrabold tracking-tight text-green-700">NOUVEL ESPOIR</span>
+                    <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
+                </div>
+            </a>
+        </h1>
+
+        <ul class="hidden md:flex space-x-8 font-semibold items-center">
+            <li><a href="index.html" class="text-gray-600 hover:text-green-600 transition-colors">Accueil</a></li>
+            <li><a href="propos.html" class="text-gray-600 hover:text-green-600 transition-colors">À Propos</a></li>
+            <li><a href="secteurs.html" class="text-gray-600 hover:text-green-600 transition-colors">Nos Secteurs</a></li>
+            <li><a href="impact.html" class="text-gray-600 hover:text-green-600 transition-colors">Impact</a></li>
+            <li><a href="realisations.html" class="text-gray-600 hover:text-green-600 transition-colors">Réalisations</a></li>
+            <li>
+                <a href="contact.html" class="bg-green-700 text-white px-5 py-2 rounded-full shadow-sm">
+                    Nous contacter
+                </a>
+            </li>
+        </ul>
+
+        <div class="md:hidden text-green-700">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+        </div>
+    </div>
+</nav>
+
+<section id="contact" class="min-h-screen flex items-center justify-center py-20 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="max-w-5xl mx-auto bg-white rounded-[3rem] shadow-2xl shadow-slate-200/50 overflow-hidden flex flex-col md:flex-row border border-slate-100">
+            
+            <div class="md:w-1/3 bg-green-700 p-12 text-white flex flex-col justify-between">
+                <div>
+                    <h3 class="text-3xl font-black mb-6 tracking-tighter uppercase leading-none">Contactez-nous</h3>
+                    <p class="mb-12 text-green-100 italic font-medium">"Singuila Mingui" pour votre intérêt et votre soutien à la cause des orphelins.</p>
+                    
+                    <ul class="space-y-8">
+                        <li class="flex items-start gap-4">
+                            <span class="text-2xl">📍</span>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-green-300">Siège Social</p>
+                                <p class="font-bold">Bangui, RCA</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-2xl">📞</span>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-green-300">Téléphone</p>
+                                <p class="font-bold">+236 72 34 78 76</p>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <span class="text-2xl">📧</span>
+                            <div>
+                                <p class="text-[10px] font-black uppercase tracking-widest text-green-300">Email</p>
+                                <p class="font-bold text-sm break-all">orphelinatnouvelespoir@gmail.com</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="mt-12 pt-8 border-t border-green-600/50">
+                    <p class="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 italic">Nouvel Espoir RCA</p>
+                </div>
+            </div>
+
+            <div class="md:w-2/3 p-12 bg-white">
+                <form id="contactPageForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Nom complet</label>
+                            <input type="text" id="page_nom" placeholder="Ex: Jean Bangui" class="w-full border-2 border-slate-50 bg-slate-50 p-4 rounded-2xl outline-none focus:border-green-500 focus:bg-white transition-all font-medium" required>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Votre Email *</label>
+                            <input type="email" id="page_email" placeholder="email@exemple.com" class="w-full border-2 border-slate-50 bg-slate-50 p-4 rounded-2xl outline-none focus:border-green-500 focus:bg-white transition-all font-medium" required>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Votre Message *</label>
+                        <textarea id="page_message" placeholder="Comment souhaitez-vous nous aider ?" class="w-full border-2 border-slate-50 bg-slate-50 p-4 rounded-2xl h-40 outline-none focus:border-green-500 focus:bg-white transition-all font-medium resize-none" required></textarea>
+                    </div>
+
+                    <button type="button" onclick="handleContactSubmit()" class="w-full bg-orange-500 text-white font-black py-5 rounded-2xl hover:bg-slate-900 transition-all shadow-xl shadow-orange-900/20 uppercase text-xs tracking-[0.2em]">
+                        Envoyer le message
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer class="bg-gray-900 text-white pt-20 pb-10">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+            
+            <div class="space-y-6">
+                <a href="index.html" class="flex items-center gap-3">
+                    <img src="images/logo-nouvel-espoir-noir.jpeg" alt="Logo" class="h-12 w-auto brightness-200">
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-xl font-black tracking-tighter text-white">NOUVEL ESPOIR</span>
+                        <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
+                    </div>
+                </a>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Une œuvre caritative engagée pour la protection, l'éducation et la santé des personnes les plus vulnérables en République Centrafricaine.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-600 transition-colors">
+                        <span class="text-xs">FB</span>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-green-600 transition-colors">
+                        <span class="text-xs">IN</span>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-6 border-l-4 border-orange-500 pl-4">Contact</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li class="flex items-start gap-3">
+                        <span class="text-orange-500">📍</span>
+                        <span>Siège : Bangui, Sica Benzvi, RCA</span>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <span class="text-orange-500">🏠</span>
+                        <span>Base : Bouar, Face ENEB</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="text-orange-500">📞</span>
+                        <a href="tel:+23672347876" class="hover:text-white transition-colors">+236 72 34 78 76</a>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <span class="text-orange-500">✉️</span>
+                        <a href="mailto:contact@nouvel-espoir.org" class="hover:text-white transition-colors">contact@nouvel-espoir.org</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-bold mb-6 border-l-4 border-green-600 pl-4">Navigation</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="propos.html" class="hover:text-orange-500 transition-colors">Qui sommes-nous ?</a></li>
+                    <li><a href="secteurs.html" class="hover:text-orange-500 transition-colors">Nos Secteurs d'intervention</a></li>
+                    <li><a href="impact.html" class="hover:text-orange-500 transition-colors">Notre Impact</a></li>
+                    <li><a href="contact.html" class="hover:text-orange-500 transition-colors">Devenir Bénévole</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 class="text-lg font-black mb-6 border-l-4 border-green-600 pl-4 uppercase tracking-tighter">Écrivez-nous</h4>
+                <p class="text-gray-400 text-sm mb-6 font-medium italic">Nous vous répondrons rapidement.</p>
+                <form id="contactForm" class="flex flex-col gap-3">
+                    <input type="text" id="name" placeholder="Nom complet" class="bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-600 transition-colors text-white">
+                    <input type="email" id="email" placeholder="Email *" required class="bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-600 transition-colors text-white">
+                    <button type="button" onclick="sendMail()" class="bg-green-600 hover:bg-green-700 text-white font-black py-4 rounded-xl transition-all shadow-lg uppercase text-[10px] tracking-[0.2em]">
+                        Envoyer
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <div class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+            <p class="text-gray-500 text-xs">
+                © 2026 NOUVEL ESPOIR RCA - Tous droits réservés.
+            </p>
+            <ul class="flex gap-8 text-gray-500 text-xs uppercase tracking-widest font-bold">
+                <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
+                <li><a href="#" class="hover:text-white transition-colors">Confidentialité</a></li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
+<script>
+// Fonction pour le formulaire de la page
+function handleContactSubmit() {
+    const nom = document.getElementById('page_nom').value;
+    const email = document.getElementById('page_email').value;
+    const message = document.getElementById('page_message').value;
+
+    if(!nom || !email || !message) {
+        alert("Merci de remplir tous les champs obligatoires.");
+        return;
+    }
+
+    const destination = "orphelinatnouvelespoir@gmail.com";
+    const subject = encodeURIComponent("Contact Site - Nouvel Espoir");
+    const body = encodeURIComponent("NOM : " + nom + "\nEMAIL : " + email + "\n\nMESSAGE :\n" + message);
+
+    window.location.href = `mailto:${destination}?subject=${subject}&body=${body}`;
+}
+
+// Fonction pour le petit formulaire du footer
+function sendMail() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = encodeURIComponent("Contact Footer - Nouvel Espoir");
+    const body = encodeURIComponent("Nom: " + name + "\nEmail: " + email);
+    
+    window.location.href = `mailto:orphelinatnouvelespoir@gmail.com?subject=${subject}&body=${body}`;
+}
+</script>
+
+</body>
+</html>

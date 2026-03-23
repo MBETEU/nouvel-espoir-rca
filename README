@@ -1,0 +1,34 @@
+# 🇨🇫 Nouvel Espoir RCA - Plateforme Humanitaire
+
+![Statut du Projet](https://img.shields.io/badge/Statut-En_Ligne-brightgreen)
+![Tech](https://img.shields.io/badge/Tech-HTML5_%7C_TailwindCSS_%7C_JS-blue)
+
+**Nouvel Espoir** est une organisation humanitaire basée à Bangui, dédiée à la protection, l'éducation et la santé des populations vulnérables en République Centrafricaine. Ce site vitrine permet de présenter nos domaines d'intervention et de suivre nos réalisations en temps réel.
+
+---
+
+## 🚀 Fonctionnalités Clés
+
+- **Diaporamas Dynamiques** : Présentation immersive des projets avec effets de zoom (Ken Burns) et carrousels interactifs.
+- **Base de Données Temps Réel** : Intégration avec **Supabase** pour l'affichage dynamique des réalisations terrain.
+- **Système de Filtrage** : Tri des projets par catégorie (Urgence, Éducation, WASH, Santé, Protection).
+- **Design Adaptatif** : Interface optimisée pour mobile et ordinateur (Mobile-First).
+- **Support Multimédia** : Galerie photo et intégration de vidéos pour chaque action menée.
+
+## 🛠️ Technologies Utilisées
+
+- **Frontend** : HTML5, JavaScript (ES6+).
+- **Style** : [Tailwind CSS](https://tailwindcss.com/) pour un design moderne et rapide.
+- **Backend (Baas)** : [Supabase](https://supabase.com/) pour la gestion des données et du stockage média.
+- **Hébergement** : Déployé sur Vercel/GitHub Pages.
+
+## 📂 Structure du Projet
+
+```text
+├── images/             # Ressources visuelles (Logos, Photos d'ambiance)
+├── index.html          # Page d'accueil (Hero slider, Secteurs d'activité)
+├── realisations.html   # Galerie dynamique connectée à Supabase
+├── propos.html         # Histoire et Vision de l'ONG
+├── contact.html        # Formulaire et coordonnées
+├── style.css           # Fichier Tailwind compilé
+└── README.md           # Documentation du projet

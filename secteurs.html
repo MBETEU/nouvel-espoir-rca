@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Secteurs d'Intervention | Nouvel Espoir</title>
+    <link href="./style.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+    <nav class="bg-white p-4 text-gray-800 shadow-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1>
+                <a href="index.html" class="flex items-center gap-2">
+                    <img src="images/logo-nouvel-espoir.png" alt="Logo" class="h-12 w-auto">
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-xl font-extrabold tracking-tight text-green-700">NOUVEL ESPOIR</span>
+                        <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
+                    </div>
+                </a>
+            </h1>
+            <ul class="hidden md:flex space-x-8 font-semibold items-center">
+                <li><a href="index.html" class="text-gray-600 hover:text-green-600 transition-colors">Accueil</a></li>
+                <li><a href="propos.html" class="text-gray-600 hover:text-green-600">À Propos</a></li>
+                <li><a href="secteurs.html" class="text-green-700 border-b-2 border-green-700">Nos Secteurs</a></li>
+                <li><a href="realisations.html" class="text-gray-600 hover:text-green-600">Réalisations</a></li>
+                <li><a href="contact.html" class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-all shadow-md">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-6 text-center">
+            <div class="inline-block bg-orange-50 text-orange-600 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-6">
+                Expertise & Engagement
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-gray-950 mb-6 tracking-tighter">NOS DOMAINES D'ACTION</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto text-lg leading-relaxed">
+                Nous intervenons de manière holistique pour répondre aux besoins urgents et durables des populations vulnérables en République Centrafricaine.
+            </p>
+        </div>
+    </section>
+
+    <section class="pb-24 bg-white">
+    <div class="container mx-auto px-6">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            
+            <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col">
+                <div class="h-48 overflow-hidden relative" data-carousel="edu-mini">
+                    <div class="carousel-track flex h-full w-full transition-transform duration-700 ease-in-out">
+                        <img src="images/mission/mission1.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                        <img src="images/mission/mission2.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                    </div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm group-hover:bg-green-600 transition-colors z-10">
+                        <span class="text-2xl group-hover:scale-110 transition-transform">📚</span>
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 z-10" data-carousel-indicators></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-black text-gray-900 mb-4 tracking-tight">Éducation</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Scolarisation adaptée, distribution de fournitures et soutien pédagogique pour les orphelins et enfants déplacés.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col">
+                <div class="h-48 overflow-hidden relative" data-carousel="sante-mini">
+                    <div class="carousel-track flex h-full w-full transition-transform duration-700 ease-in-out">
+                        <img src="images/mission/mission7.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                        <img src="images/mission/mission8.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                    </div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm group-hover:bg-red-500 transition-colors z-10">
+                        <span class="text-2xl group-hover:scale-110 transition-transform">🏥</span>
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 z-10" data-carousel-indicators></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-black text-gray-900 mb-4 tracking-tight text-red-600/90">Santé & Nutrition</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Couverture sanitaire de base, dépistage de la malnutrition et appui nutritionnel dans la région de Bouar-Baoro.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col">
+                <div class="h-48 overflow-hidden relative" data-carousel="wash-mini">
+                    <div class="carousel-track flex h-full w-full transition-transform duration-700 ease-in-out">
+                        <img src="images/mission/mission3.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                        <img src="images/mission/mission4.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                    </div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm group-hover:bg-blue-500 transition-colors z-10">
+                        <span class="text-2xl group-hover:scale-110 transition-transform">💧</span>
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 z-10" data-carousel-indicators></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-black text-gray-900 mb-4 tracking-tight text-blue-600/90">WASH</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Réhabilitation de points d'eau potable, sensibilisation à l'hygiène et construction d'infrastructures d'assainissement.
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 group overflow-hidden flex flex-col">
+                <div class="h-48 overflow-hidden relative" data-carousel="vbg-mini">
+                    <div class="carousel-track flex h-full w-full transition-transform duration-700 ease-in-out">
+                        <img src="images/mission/mission5.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                        <img src="images/mission/mission6.jpeg" class="w-full h-full object-cover flex-shrink-0">
+                    </div>
+                    <div class="absolute top-4 left-4 w-12 h-12 bg-white/90 backdrop-blur-sm rounded-xl flex items-center justify-center shadow-sm group-hover:bg-orange-500 transition-colors z-10">
+                        <span class="text-2xl group-hover:scale-110 transition-transform">⚖️</span>
+                    </div>
+                    <div class="absolute bottom-3 left-0 right-0 flex justify-center gap-1 z-10" data-carousel-indicators></div>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-black text-gray-900 mb-4 tracking-tight text-orange-600/90">Protection & VBG</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Prévention des violences basées sur le genre, prise en charge des victimes et protection des droits de l'enfant.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+    <footer class="bg-gray-900 text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                
+                <div class="space-y-6">
+                    <a href="index.html" class="flex items-center gap-3">
+                        <img src="images/logo-nouvel-espoir-noir.jpeg" alt="Logo" class="h-12 w-auto brightness-200">
+                        <div class="flex flex-col leading-tight">
+                            <span class="text-xl font-black tracking-tighter text-white">NOUVEL ESPOIR</span>
+                            <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
+                        </div>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Une œuvre caritative engagée pour la protection, l'éducation et la santé des personnes les plus vulnérables en République Centrafricaine.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 border-l-4 border-orange-500 pl-4">Contact</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start gap-3">
+                            <span class="text-orange-500">📍</span>
+                            <span>Siège : Bangui, Sica Benzvi, RCA</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-orange-500">📞</span>
+                            <a href="tel:+23672347876" class="hover:text-white transition-colors">+236 72 34 78 76</a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <span class="text-orange-500">✉️</span>
+                            <a href="mailto:orphelinatnouvelespoir@gmail.com" class="hover:text-white transition-colors">orphelinatnouvelespoir@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 border-l-4 border-green-600 pl-4">Navigation</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li><a href="propos.html" class="hover:text-orange-500 transition-colors">Qui sommes-nous ?</a></li>
+                        <li><a href="secteurs.html" class="hover:text-orange-500 transition-colors">Nos Secteurs</a></li>
+                        <li><a href="realisations.html" class="hover:text-orange-500 transition-colors">Réalisations</a></li>
+                        <li><a href="contact.html" class="hover:text-orange-500 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-black mb-6 border-l-4 border-green-600 pl-4 uppercase">Message rapide</h4>
+                    <form class="flex flex-col gap-3">
+                        <input type="email" id="quick-email" placeholder="Votre Email" class="bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white outline-none focus:border-green-600 transition-colors">
+                        <button type="button" onclick="sendQuickMail()" class="bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl transition-all shadow-lg uppercase text-[10px] tracking-widest">
+                            envoyer
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-10 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-gray-500 text-xs">© 2026 NOUVEL ESPOIR RCA - Tous droits réservés.</p>
+                <ul class="flex gap-8 text-gray-500 text-xs uppercase tracking-widest font-bold">
+                    <li><a href="#" class="hover:text-white transition-colors">Mentions légales</a></li>
+                    <li><a href="#" class="hover:text-white transition-colors">Confidentialité</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function sendQuickMail() {
+            const email = document.getElementById('quick-email').value;
+            if(!email) return alert("Veuillez entrer votre email");
+            window.location.href = `mailto:orphelinatnouvelespoir@gmail.com?subject=Contact Rapide&body=Email: ${email}`;
+        }
+    </script>
+</body>
+</html>

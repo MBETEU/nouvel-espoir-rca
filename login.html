@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion Admin | Nouvel Espoir</title>
+    <link href="./style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+    <div class="bg-white p-8 rounded-xl shadow-lg w-96">
+        <h2 class="text-2xl font-bold mb-6 text-green-700 text-center">Connexion Admin</h2>
+        <form id="login-form" class="space-y-4">
+            <input type="email" id="email" placeholder="Email" class="w-full border p-3 rounded-xl outline-none focus:ring-2 focus:ring-green-500" required>
+            <input type="password" id="password" placeholder="Mot de passe" class="w-full border p-3 rounded-xl outline-none focus:ring-2 focus:ring-green-500" required>
+            <button type="submit" id="btn-submit" class="w-full bg-green-600 text-white py-3 rounded-xl font-bold hover:bg-green-700 transition">
+                Se connecter
+            </button>
+        </form>
+        <p id="error-msg" class="text-red-500 text-xs mt-4 text-center hidden"></p>
+    </div>
+
+    <script>
+        // Correction ici : on utilise window.supabase pour éviter le conflit
+        const SUPABASE_URL = 'https://sveeuxbtcrobmsvjgrkz.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_pKXWtFrpss6-j3yOQZ26fg_VTxiS_Sk';
+        const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        document.getElementById('login-form').onsubmit = async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const btn = document.getElementById('btn-submit');
+            const errorMsg = document.getElementById('error-msg');
+
+            // Visual feedback
+            btn.innerText = "Chargement...";
+            btn.disabled = true;
+
+            try {
+                const { data, error } = await _supabase.auth.signInWithPassword({ 
+                    email: email, 
+                    password: password 
+                });
+
+                if (error) {
+                    errorMsg.innerText = "Erreur : " + error.message;
+                    errorMsg.classList.remove('hidden');
+                    btn.innerText = "Se connecter";
+                    btn.disabled = false;
+                    console.error("Erreur de connexion:", error.message);
+                } else {
+                    console.log("Connexion réussie !", data);
+                    // Redirection forcée
+                    window.location.replace('admin.html');
+                }
+            } catch (err) {
+                alert("Une erreur inattendue est survenue.");
+                console.error(err);
+                btn.disabled = false;
+            }
+        };
+    </script>
+</body>
+</html>

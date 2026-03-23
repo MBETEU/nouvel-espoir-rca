@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nos Réalisations | Nouvel Espoir</title>
+    <link href="./style.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .reveal-card { opacity: 0; animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+
+        .aspect-realisation { aspect-ratio: 16 / 10; }
+
+        /* Styles pour le carrousel interne aux cartes */
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+        }
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+    <nav class="bg-white p-4 text-gray-800 shadow-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1>
+                <a href="index.html" class="flex items-center gap-2">
+                    <img src="images/logo-nouvel-espoir.png" alt="Logo" class="h-12 w-auto">
+                    <div class="flex flex-col leading-tight">
+                        <span class="text-xl font-extrabold tracking-tight text-green-700">NOUVEL ESPOIR</span>
+                        <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
+                    </div>
+                </a>
+            </h1>
+            <ul class="hidden md:flex space-x-8 font-semibold items-center">
+                <li><a href="index.html" class="text-gray-600 hover:text-green-600 transition-colors">Accueil</a></li>
+                <li><a href="propos.html" class="text-gray-600 hover:text-green-600">À Propos</a></li>
+                <li><a href="secteurs.html" class="text-gray-600 hover:text-green-600">Nos Secteurs</a></li>
+                <li><a href="realisations.html" class="text-green-700 border-b-2 border-green-700">Réalisations</a></li>
+                <li><a href="contact.html" class="bg-green-600 text-white px-6 py-2 rounded-full hover:bg-green-700 transition-all shadow-md">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="pt-20 pb-16 bg-white border-b border-gray-100">
+        <div class="container mx-auto px-6 text-center">
+            <div class="inline-block bg-green-50 text-green-700 px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest mb-6">
+                Impact & Transparence
+            </div>
+            <h2 class="text-4xl md:text-6xl font-black text-gray-950 mb-4 tracking-tighter">NOS ACTIONS EN RCA</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto mb-12 text-lg italic">"Chaque image témoigne d'une vie qui change."</p>
+
+            <div id="filter-bar" class="flex flex-wrap justify-center gap-3 mb-4">
+                <button onclick="filtrer('Toutes')" class="filter-btn active bg-green-600 text-white px-6 py-2.5 rounded-full text-xs font-bold shadow-lg shadow-green-200 transition-all hover:scale-105">Toutes</button>
+                <button onclick="filtrer('Urgence')" class="filter-btn bg-white border border-gray-200 text-gray-600 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-all">🚨 Urgence</button>
+                <button onclick="filtrer('Éducation')" class="filter-btn bg-white border border-gray-200 text-gray-600 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-all">🎓 Éducation</button>
+                <button onclick="filtrer('Santé')" class="filter-btn bg-white border border-gray-200 text-gray-600 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-all">🏥 Santé</button>
+                <button onclick="filtrer('WASH')" class="filter-btn bg-white border border-gray-200 text-gray-600 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-all">💧 WASH</button>
+                <button onclick="filtrer('Protection')" class="filter-btn bg-white border border-gray-200 text-gray-600 px-6 py-2.5 rounded-full text-xs font-bold hover:bg-gray-50 transition-all">🤝 Protection</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-6">
+            <div id="container-realisations" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+                <div class="col-span-full text-center py-20">
+                    <div class="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-green-600 mb-4"></div>
+                    <p class="text-gray-400 italic">Chargement des actions terrain...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-white pt-20 pb-10">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3">
+                        <img src="images/logo-nouvel-espoir-noir.jpeg" alt="Logo" class="h-12 w-auto brightness-200">
+                        <div class="flex flex-col leading-tight">
+                            <span class="text-xl font-black tracking-tighter text-white">NOUVEL ESPOIR</span>
+                            <span class="text-[10px] uppercase text-orange-500 font-bold tracking-widest">Bangui - RCA</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Engagé pour la protection, l'éducation et la santé des plus vulnérables en République Centrafricaine.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 border-l-4 border-orange-500 pl-4 uppercase tracking-tighter">Contact</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm">
+                        <li class="flex items-start gap-3"><span>📍</span><span>Siège : Bangui, Sica Benzvi, RCA</span></li>
+                        <li class="flex items-center gap-3"><span>📞</span><a href="tel:+23672347876" class="hover:text-white">+236 72 34 78 76</a></li>
+                        <li class="flex items-center gap-3"><span>✉️</span><a href="mailto:orphelinatnouvelespoir@gmail.com" class="hover:text-white">orphelinatnouvelespoir@gmail.com</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-bold mb-6 border-l-4 border-green-600 pl-4 uppercase tracking-tighter">Navigation</h4>
+                    <ul class="space-y-4 text-gray-400 text-sm font-medium">
+                        <li><a href="propos.html" class="hover:text-orange-500 transition-colors">Qui sommes-nous ?</a></li>
+                        <li><a href="secteurs.html" class="hover:text-orange-500 transition-colors">Nos Secteurs</a></li>
+                        <li><a href="realisations.html" class="hover:text-orange-500 transition-colors">Réalisations</a></li>
+                        <li><a href="don.html" class="hover:text-orange-500 transition-colors">Faire un Don</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-lg font-black mb-6 border-l-4 border-green-600 pl-4 uppercase">Message rapide</h4>
+                    <form class="flex flex-col gap-3">
+                        <input type="email" id="quick-email" placeholder="Votre Email" class="bg-gray-800 border border-gray-700 rounded-xl px-4 py-3 text-sm text-white focus:border-green-600 outline-none transition-all">
+                        <button type="button" onclick="sendQuickMail()" class="bg-green-600 hover:bg-green-700 text-white font-black py-3 rounded-xl transition-all shadow-lg uppercase text-[10px] tracking-widest">
+                            ENVOYER
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-10 text-center">
+                <p class="text-gray-500 text-[10px] uppercase tracking-widest font-bold">© 2026 NOUVEL ESPOIR RCA - Coordination Nationale</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    const SUPABASE_URL = 'https://sveeuxbtcrobmsvjgrkz.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_pKXWtFrpss6-j3yOQZ26fg_VTxiS_Sk';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    let dataStore = [];
+    let sliderPositions = {}; // Stocke l'index actuel pour chaque carte
+
+    async function fetchRealisations() {
+        try {
+            const { data, error } = await supabaseClient
+                .from('realisations')
+                .select('*')
+                .order('created_at', { ascending: false });
+
+            if (error) throw error;
+            dataStore = data;
+            renderCards(dataStore);
+        } catch (err) {
+            console.error("Erreur Supabase :", err.message);
+            document.getElementById('container-realisations').innerHTML = `<p class="col-span-full text-red-500 text-center">Erreur de connexion aux données.</p>`;
+        }
+    }
+
+    function renderCards(list) {
+        const container = document.getElementById('container-realisations');
+        container.innerHTML = "";
+
+        if (!list || list.length === 0) {
+            container.innerHTML = `<p class="col-span-full text-center text-gray-400 py-10 italic">Aucune réalisation trouvée pour cette catégorie.</p>`;
+            return;
+        }
+
+        list.forEach((item, index) => {
+            const photos = Array.isArray(item.image_urls) ? item.image_urls : [];
+            const videos = Array.isArray(item.video_urls) ? item.video_urls : [];
+            
+            // --- GESTION DU DIAPORAMA ---
+            let mediaSection = "";
+            if (photos.length > 1) {
+                mediaSection = `
+                    <div class="carousel-container aspect-realisation group/slider" id="carousel-${index}">
+                        <div class="carousel-track h-full" id="track-${index}">
+                            ${photos.map(url => `<img src="${url}" class="w-full h-full object-cover flex-shrink-0" alt="Action terrain">`).join('')}
+                        </div>
+                        <button onclick="moveSlider(${index}, -1)" class="absolute left-3 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow-lg opacity-0 group-hover/slider:opacity-100 transition-all hover:bg-green-600 hover:text-white z-20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7"/></svg>
+                        </button>
+                        <button onclick="moveSlider(${index}, 1)" class="absolute right-3 top-1/2 -translate-y-1/2 bg-white/90 p-2 rounded-full shadow-lg opacity-0 group-hover/slider:opacity-100 transition-all hover:bg-green-600 hover:text-white z-20">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                        <div class="absolute bottom-4 right-4 bg-black/60 backdrop-blur-md text-white text-[10px] font-bold px-3 py-1 rounded-full z-20" id="counter-${index}">
+                            1 / ${photos.length}
+                        </div>
+                    </div>
+                `;
+            } else {
+                const img = photos.length > 0 ? photos[0] : 'images/default-realisation.jpg';
+                mediaSection = `
+                    <div class="overflow-hidden aspect-realisation">
+                        <img src="${img}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-110" alt="${item.titre}">
+                    </div>
+                `;
+            }
+
+            // --- GESTION DES VIDÉOS ---
+            let videoSection = "";
+            if (videos.length > 0) {
+                videoSection = `
+                    <div class="mt-6 space-y-3">
+                        <p class="text-[9px] font-black text-gray-400 uppercase tracking-[0.2em] border-b pb-2">Vidéos de l'intervention</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            ${videos.map(url => `
+                                <div class="rounded-xl overflow-hidden bg-black aspect-video shadow-inner">
+                                    <video controls class="w-full h-full"><source src="${url}" type="video/mp4"></video>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML += `
+                <article class="reveal-card bg-white rounded-[2.5rem] overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 flex flex-col" style="animation-delay: ${index * 100}ms">
+                    ${mediaSection}
+                    <div class="p-8 flex-grow">
+                        <div class="flex justify-between items-center mb-4 text-[10px] font-black uppercase tracking-widest">
+                            <span class="bg-orange-50 text-orange-600 px-3 py-1 rounded-full border border-orange-100">${item.categorie || 'Action'}</span>
+                            <span class="text-gray-400 font-bold">${new Date(item.created_at).toLocaleDateString('fr-FR', {month: 'short', year: 'numeric'})}</span>
+                        </div>
+                        <h3 class="text-xl font-black text-gray-950 mb-3 tracking-tight leading-tight">${item.titre}</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed line-clamp-3 hover:line-clamp-none transition-all cursor-pointer">${item.description || ''}</p>
+                        ${videoSection}
+                    </div>
+                </article>
+            `;
+        });
+    }
+
+    // Fonction pour animer le carrousel d'une carte
+    window.moveSlider = function(cardIndex, direction) {
+        if (sliderPositions[cardIndex] === undefined) sliderPositions[cardIndex] = 0;
+        
+        const track = document.getElementById(`track-${cardIndex}`);
+        const slides = track.querySelectorAll('img');
+        const counter = document.getElementById(`counter-${cardIndex}`);
+        
+        sliderPositions[cardIndex] += direction;
+        
+        if (sliderPositions[cardIndex] >= slides.length) sliderPositions[cardIndex] = 0;
+        if (sliderPositions[cardIndex] < 0) sliderPositions[cardIndex] = slides.length - 1;
+        
+        track.style.transform = `translateX(-${sliderPositions[cardIndex] * 100}%)`;
+        counter.innerText = `${sliderPositions[cardIndex] + 1} / ${slides.length}`;
+    }
+
+    function filtrer(cat) {
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.classList.remove('bg-green-600', 'text-white', 'shadow-lg', 'shadow-green-200');
+            btn.classList.add('bg-white', 'text-gray-600', 'border-gray-200');
+            
+            // On nettoie le texte (ignore emojis)
+            const cleanText = btn.innerText.replace(/[🚨🎓🏥💧🤝 ]+/g, '');
+            if(cleanText === cat || (cat === 'Toutes' && btn.innerText.includes('Toutes'))) {
+                btn.classList.remove('bg-white', 'text-gray-600', 'border-gray-200');
+                btn.classList.add('bg-green-600', 'text-white', 'shadow-lg', 'shadow-green-200');
+            }
+        });
+        
+        const filtered = cat === 'Toutes' ? dataStore : dataStore.filter(i => i.categorie === cat);
+        renderCards(filtered);
+    }
+
+    function sendQuickMail() {
+        const email = document.getElementById('quick-email').value;
+        if(!email) return alert("Veuillez saisir votre email.");
+        window.location.href = `mailto:orphelinatnouvelespoir@gmail.com?subject=Inscription Newsletter&body=Email: ${email}`;
+    }
+
+    document.addEventListener('DOMContentLoaded', fetchRealisations);
+    </script>
+</body>
+</html>
